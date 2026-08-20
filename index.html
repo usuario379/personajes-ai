@@ -2,84 +2,61 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personajes.AI</title>
     <link rel="stylesheet" href="style.css">
+    <title>Clon Character.AI</title>
 </head>
-<body>
+<body class="cai-theme">
 
-    <!-- MODAL DE EDAD -->
-    <div id="age-gate" class="modal-overlay">
-        <div class="modal-card">
-            <h2>Verificación de Edad</h2>
-            <p>Debes ser mayor de 18 años para acceder a esta plataforma.</p>
-            <button id="btn-verify" class="btn-primary" onclick="document.getElementById('age-gate').style.display='none';">Soy Mayor de 18 Años</button>
-        </div>
-    </div>
+<div class="main-container">
+    <!-- BARRA LATERAL (IDÉNTICA A C.AI) -->
+    <nav class="sidebar">
+        <div class="logo">Character.AI</div>
+        <button class="nav-btn" onclick="showSection('explore')">Explorar</button>
+        <button class="nav-btn" onclick="showSection('create')">Crear</button>
+    </nav>
 
-    <!-- CONTENEDOR PRINCIPAL QUE CENTRA TODO -->
-    <div class="app-container">
+    <main id="app-view">
+        <!-- FORMULARIO DE CREACIÓN -->
+        <section id="create-section" class="content-box">
+            <h1>Crear un Personaje</h1>
+            
+            <div class="avatar-upload">
+                <input type="file" id="avatar-input" accept="image/*" hidden>
+                <label for="avatar-input" class="avatar-circle">📷</label>
+                <p>Subir foto</p>
+            </div>
 
-        <header class="app-header">
-            <div class="logo">Personajes<span>.AI</span></div>
-        </header>
+            <div class="input-group">
+                <label>Nombre del Personaje</label>
+                <input type="text" id="char-name" placeholder="Ej: Tony Stark">
+            </div>
 
-        <nav class="tabs-nav">
-            <button class="tab-btn active" data-tab="tab-explore">Explorar</button>
-            <button class="tab-btn" data-tab="tab-chat">Chat</button>
-            <button class="tab-btn" data-tab="tab-create">Crear Bot</button>
-        </nav>
+            <div class="input-group">
+                <label>Saludo Inicial</label>
+                <textarea id="char-greeting" placeholder="¿Qué dirá el personaje primero?"></textarea>
+            </div>
 
-        <main class="app-content">
-            <!-- PESTAÑA: EXPLORAR -->
-            <section id="tab-explore" class="tab-content active">
-                <h3>Bots Recomendados</h3>
-                <div class="bot-grid">
-                    <div class="bot-card" onclick="selectBot('Asistente Virtual', 'https://api.dicebear.com/7.x/bottts/svg?seed=asistente')">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=asistente" alt="Bot">
-                        <h4>Asistente Virtual</h4>
-                    </div>
-                    <div class="bot-card" onclick="selectBot('Luna (Anime)', 'https://api.dicebear.com/7.x/bottts/svg?seed=luna')">
-                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=luna" alt="Bot">
-                        <h4>Luna (Anime)</h4>
-                    </div>
-                </div>
-            </section>
+            <div class="input-group">
+                <label>Definición (Prompt largo)</label>
+                <textarea id="char-prompt" rows="5" placeholder="Define la personalidad y el contexto aquí..."></textarea>
+            </div>
 
-            <!-- PESTAÑA: CHAT -->
-            <section id="tab-chat" class="tab-content">
-                <div class="chat-header">
-                    <img id="chat-bot-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=asistente" alt="Bot">
-                    <h3 id="chat-bot-name">Asistente Virtual</h3>
-                </div>
-                <div id="chat-messages" class="messages-container">
-                    <div class="message bot">¡Hola! Comencemos.</div>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
-                    <button id="send-btn" class="btn-send">Enviar</button>
-                </div>
-            </section>
+            <div class="input-group">
+                <label>Visibilidad</label>
+                <select id="char-visibility">
+                    <option value="public">Público</option>
+                    <option value="private">Privado</option>
+                </select>
+            </div>
 
-            <!-- PESTAÑA: CREAR BOT -->
-            <section id="tab-create" class="tab-content">
-                <h3>Crear un Nuevo Bot</h3>
-                <form id="create-bot-form" class="bot-form">
-                    <label>Nombre del Bot</label>
-                    <input type="text" id="new-bot-name" placeholder="Ej. Alex" required>
-                    <label>Descripción</label>
-                    <input type="text" id="new-bot-desc" placeholder="Ej. Tu compañero" required>
-                    <label>Personalidad</label>
-                    <textarea id="new-bot-prompt" rows="3" placeholder="Describe al bot..."></textarea>
-                    <button type="submit" class="btn-primary">Crear</button>
-                </form>
-            </section>
-        </main>
+            <button class="btn-create" onclick="saveCharacter()">Crear Personaje</button>
+        </section>
+    </main>
+</div>
 
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
+
 
 
