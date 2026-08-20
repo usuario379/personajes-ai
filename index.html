@@ -1,0 +1,54 @@
+<div id="age-gate" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Verificación de Edad (+18)</h2>
+    <p>Plataforma para adultos. Tolerancia cero frente a contenido infantil (Anti-CSAM).</p>
+    <button id="btn-verify" class="btn-primary">Entrar (+18)</button>
+  </div>
+</div>
+
+<header class="app-header">
+  <h1>Proyecto UV <span>+18</span></h1>
+</header>
+
+<main class="container">
+  <div class="tabs">
+    <button id="tab-chat" class="tab-btn active">Chat</button>
+    <button id="tab-explore" class="tab-btn">Explorar Bots</button>
+    <button id="tab-create" class="tab-btn">Crear Bot</button>
+  </div>
+
+  <!-- SECCIÓN 1: CHAT -->
+  <section id="sec-chat" class="card chat-card">
+    <div class="chat-header">
+      <h2 id="active-bot-name">Selecciona un Bot</h2>
+      <span id="active-bot-badge" class="badge">Sin Selección</span>
+    </div>
+    <div id="chat-box" class="chat-messages">
+      <div class="msg system">Ve a 'Explorar' o 'Crear' para empezar.</div>
+    </div>
+    <div class="chat-input-container">
+      <input type="text" id="user-input" placeholder="Escribe un mensaje..." disabled>
+      <button id="btn-send" class="btn-primary" disabled>Enviar</button>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: EXPLORAR BOTS -->
+  <section id="sec-explore" class="card hidden">
+    <h2>Biblioteca de Personajes</h2>
+    <div id="bot-grid" class="bot-grid"></div>
+  </section>
+
+  <!-- SECCIÓN 3: CREADOR -->
+  <section id="sec-create" class="card hidden">
+    <h2>Crear Nuevo Personaje</h2>
+    <form id="bot-form">
+      <label>Nombre del Bot:</label>
+      <input type="text" id="bot-name" placeholder="Ej. Lilith" required>
+      <label>Edad (Mínimo 18):</label>
+      <input type="number" id="bot-age" min="18" value="21" required>
+      <label>Personalidad / Prompt Base:</label>
+      <textarea id="bot-personality" rows="3" placeholder="Describe cómo actúa..." required></textarea>
+      <button type="submit" class="btn-secondary">Publicar Bot</button>
+    </form>
+  </section>
+</main>
