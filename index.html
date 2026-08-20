@@ -1,54 +1,88 @@
-<div id="age-gate" class="modal-overlay">
-  <div class="modal-content">
-    <h2>Verificación de Edad (+18)</h2>
-    <p>Plataforma para adultos. Tolerancia cero frente a contenido infantil (Anti-CSAM).</p>
-    <button id="btn-verify" class="btn-primary">Entrar (+18)</button>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personajes.AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<header class="app-header">
-  <h1>Proyecto UV <span>+18</span></h1>
-</header>
-
-<main class="container">
-  <div class="tabs">
-    <button id="tab-chat" class="tab-btn active">Chat</button>
-    <button id="tab-explore" class="tab-btn">Explorar Bots</button>
-    <button id="tab-create" class="tab-btn">Crear Bot</button>
-  </div>
-
-  <!-- SECCIÓN 1: CHAT -->
-  <section id="sec-chat" class="card chat-card">
-    <div class="chat-header">
-      <h2 id="active-bot-name">Selecciona un Bot</h2>
-      <span id="active-bot-badge" class="badge">Sin Selección</span>
+    <!-- MODAL DE EDAD (+18) -->
+    <div id="age-gate" class="modal-overlay">
+        <div class="modal-card">
+            <h2>Verificación de Edad</h2>
+            <p>Debes ser mayor de 18 años para acceder a esta plataforma.</p>
+            <button id="btn-verify" class="btn-primary">Soy Mayor de 18 Años</button>
+        </div>
     </div>
-    <div id="chat-box" class="chat-messages">
-      <div class="msg system">Ve a 'Explorar' o 'Crear' para empezar.</div>
-    </div>
-    <div class="chat-input-container">
-      <input type="text" id="user-input" placeholder="Escribe un mensaje..." disabled>
-      <button id="btn-send" class="btn-primary" disabled>Enviar</button>
-    </div>
-  </section>
 
-  <!-- SECCIÓN 2: EXPLORAR BOTS -->
-  <section id="sec-explore" class="card hidden">
-    <h2>Biblioteca de Personajes</h2>
-    <div id="bot-grid" class="bot-grid"></div>
-  </section>
+    <!-- ENCABEZADO -->
+    <header class="app-header">
+        <div class="logo">Personajes<span>.AI</span></div>
+    </header>
 
-  <!-- SECCIÓN 3: CREADOR -->
-  <section id="sec-create" class="card hidden">
-    <h2>Crear Nuevo Personaje</h2>
-    <form id="bot-form">
-      <label>Nombre del Bot:</label>
-      <input type="text" id="bot-name" placeholder="Ej. Lilith" required>
-      <label>Edad (Mínimo 18):</label>
-      <input type="number" id="bot-age" min="18" value="21" required>
-      <label>Personalidad / Prompt Base:</label>
-      <textarea id="bot-personality" rows="3" placeholder="Describe cómo actúa..." required></textarea>
-      <button type="submit" class="btn-secondary">Publicar Bot</button>
-    </form>
-  </section>
-</main>
+    <!-- PESTAÑAS / NAVEGACIÓN -->
+    <nav class="tabs-nav">
+        <button class="tab-btn active" data-tab="tab-explore">Explorar</button>
+        <button class="tab-btn" data-tab="tab-chat">Chat</button>
+        <button class="tab-btn" data-tab="tab-create">Crear Bot</button>
+    </nav>
+
+    <main class="app-content">
+
+        <!-- PESTAÑA: EXPLORAR BOTS -->
+        <section id="tab-explore" class="tab-content active">
+            <h3>Bots Recomendados</h3>
+            <div class="bot-grid">
+                <div class="bot-card" onclick="selectBot('Asistente Virtual', 'https://api.dicebear.com/7.x/bottts/svg?seed=asistente')">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=asistente" alt="Bot">
+                    <h4>Asistente Virtual</h4>
+                    <p>Estoy aquí para responder tus preguntas y ayudarte.</p>
+                </div>
+                <div class="bot-card" onclick="selectBot('Luna (Anime)', 'https://api.dicebear.com/7.x/bottts/svg?seed=luna')">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=luna" alt="Bot">
+                    <h4>Luna (Anime)</h4>
+                    <p>Amigable y llena de energía. ¡Hablemos!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: CHAT -->
+        <section id="tab-chat" class="tab-content">
+            <div class="chat-header">
+                <img id="chat-bot-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=asistente" alt="Bot">
+                <h3 id="chat-bot-name">Asistente Virtual</h3>
+            </div>
+            <div id="chat-messages" class="messages-container">
+                <div class="message bot">¡Hola! Selecciona un bot o escribe un mensaje para comenzar.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+                <button id="send-btn" class="btn-send">Enviar</button>
+            </div>
+        </section>
+
+        <!-- PESTAÑA: CREAR BOT -->
+        <section id="tab-create" class="tab-content">
+            <h3>Crear un Nuevo Bot</h3>
+            <form id="create-bot-form" class="bot-form">
+                <label>Nombre del Bot</label>
+                <input type="text" id="new-bot-name" placeholder="Ej. Alex" required>
+                
+                <label>Descripción corta</label>
+                <input type="text" id="new-bot-desc" placeholder="Ej. Tu compañero de aventuras" required>
+                
+                <label>Personalidad / Prompt Base</label>
+                <textarea id="new-bot-prompt" rows="4" placeholder="Describe cómo debe actuar el bot..."></textarea>
+                
+                <button type="submit" class="btn-primary">Crear Personaje</button>
+            </form>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
