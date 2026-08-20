@@ -12,11 +12,14 @@ body {
     justify-content: center;
 }
 
-.app-container, body {
+.app-container {
     width: 100%;
     max-width: 500px;
+    margin: 0 auto; /* ESTO ES LO QUE CENTRA TODO */
     min-height: 100vh;
+    background-color: #0f1117;
 }
+
 
 /* ENCABEZADO */
 .app-header {
