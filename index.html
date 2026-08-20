@@ -2,61 +2,191 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>personajes.AI</title>
     <link rel="stylesheet" href="style.css">
-    <title>Clon Character.AI</title>
 </head>
-<body class="cai-theme">
+<body>
 
-<div class="main-container">
-    <!-- BARRA LATERAL (IDÉNTICA A C.AI) -->
-    <nav class="sidebar">
-        <div class="logo">Character.AI</div>
-        <button class="nav-btn" onclick="showSection('explore')">Explorar</button>
-        <button class="nav-btn" onclick="showSection('create')">Crear</button>
+    <!-- CABECERA DE LA APP -->
+    <header class="app-top-bar">
+        <div class="brand-logo">personajes<span>.AI</span></div>
+        <div class="top-icons">
+            <span class="icon-btn">🔍</span>
+            <span class="icon-btn">🔔</span>
+        </div>
+    </header>
+
+    <!-- ÁREA DE CONTENIDO (PANTALLAS) -->
+    <main class="app-screen">
+
+        <!-- PANTALLA 1: INICIO / EXPLORAR -->
+        <section id="view-home" class="screen-view active">
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" placeholder="Buscar personajes...">
+            </div>
+
+            <div class="category-pills">
+                <button class="pill active">Para ti</button>
+                <button class="pill">Siguiendo</button>
+                <button class="pill">Tendencia</button>
+                <button class="pill">Destacado</button>
+            </div>
+
+            <div class="feed-grid">
+                <div class="feed-card" onclick="openChat('Daniel Valencia', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300')">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300" alt="Daniel">
+                    <div class="card-info">
+                        <h4>Daniel Valencia</h4>
+                        <p>💼 | La nueva secretaría de presidencia</p>
+                        <span class="stats">💬 6.7k</span>
+                    </div>
+                </div>
+
+                <div class="feed-card" onclick="openChat('Patricia Segura', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300')">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" alt="Patricia">
+                    <div class="card-info">
+                        <h4>Patricia Segura</h4>
+                        <p>Presidenta de la Comunidad Valenciana.</p>
+                        <span class="stats">💬 52.1k</span>
+                    </div>
+                </div>
+
+                <div class="feed-card" onclick="openChat('Ethan Petrova', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300')">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300" alt="Ethan">
+                    <div class="card-info">
+                        <h4>Ethan Petrova</h4>
+                        <p>Empresario frío y calculador.</p>
+                        <span class="stats">💬 18.3k</span>
+                    </div>
+                </div>
+
+                <div class="feed-card" onclick="openChat('Emma Myers', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300')">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300" alt="Emma">
+                    <div class="card-info">
+                        <h4>Emma Myers</h4>
+                        <p>Actriz amigable y alegre.</p>
+                        <span class="stats">💬 120k</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANTALLA 2: CHATS -->
+        <section id="view-chats" class="screen-view">
+            <h2>Chats</h2>
+            <div class="chat-list" id="recent-chats-list">
+                <div class="chat-item" onclick="openChat('Emma Myers', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300')">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300" alt="Avatar">
+                    <div class="chat-item-details">
+                        <h4>Emma Myers</h4>
+                        <p>¡Hola! ¿Cómo estás hoy?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANTALLA 3: INTERFAZ DE CHAT ABIERTO -->
+        <section id="view-active-chat" class="screen-view">
+            <div class="chat-header">
+                <button class="back-btn" onclick="switchNav('view-chats')">←</button>
+                <img id="active-avatar" src="" alt="Avatar">
+                <h3 id="active-name">Bot</h3>
+            </div>
+            <div id="messages-container" class="messages-container"></div>
+            <div class="chat-input-bar">
+                <input type="text" id="user-msg-input" placeholder="Escribe un mensaje...">
+                <button onclick="sendChatMessage()">➤</button>
+            </div>
+        </section>
+
+        <!-- PANTALLA 4: PERFIL -->
+        <section id="view-profile" class="screen-view">
+            <div class="profile-header">
+                <div class="profile-avatar">👤</div>
+                <h3>Usuario379</h3>
+                <p class="bio">Usuario de personajes.AI</p>
+                <div class="profile-stats">
+                    <div><span>0</span> Seguidores</div>
+                    <div><span>0</span> Siguiendo</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MENÚ DESPLEGABLE "CREAR" (POPUP TIPO APP) -->
+    <div id="create-modal" class="modal-overlay">
+        <div class="modal-bottom-sheet">
+            <div class="sheet-handle"></div>
+            <h3>Crear</h3>
+            <div class="create-options">
+                <div class="option-item" onclick="openCreateForm()">
+                    <span class="icon">👤</span>
+                    <div>
+                        <strong>Personaje</strong>
+                        <p>Crea un bot personalizado</p>
+                    </div>
+                </div>
+                <div class="option-item" onclick="closeCreateModal()">
+                    <span class="icon">✏️</span>
+                    <div>
+                        <strong>Persona</strong>
+                        <p>Define tu propia identidad de usuario</p>
+                    </div>
+                </div>
+                <div class="option-item" onclick="closeCreateModal()">
+                    <span class="icon">💬</span>
+                    <div>
+                        <strong>Chat de grupo</strong>
+                        <p>Habla con múltiples bots a la vez</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-cancel" onclick="closeCreateModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- FORMULARIO DE CREAR PERSONAJE -->
+    <div id="form-create-character" class="modal-overlay">
+        <div class="modal-full-screen">
+            <div class="form-header">
+                <button onclick="closeCreateForm()">✕</button>
+                <h3>Nuevo Personaje</h3>
+                <button onclick="saveNewCharacter()" class="btn-save">Guardar</button>
+            </div>
+            <div class="form-body">
+                <div class="image-upload-box">
+                    <input type="file" id="char-image-file" accept="image/*" hidden onchange="previewImage(event)">
+                    <label for="char-image-file" id="image-preview-label">
+                        <span>📷</span>
+                        <p>Subir Foto de Perfil</p>
+                    </label>
+                </div>
+                <input type="text" id="new-name" placeholder="Nombre del personaje">
+                <textarea id="new-greeting" placeholder="Saludo inicial (ej. ¡Hola! ¿De qué quieres hablar?)"></textarea>
+                <textarea id="new-prompt" placeholder="Definición / Personalidad (prompt base)"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- BARRA DE NAVEGACIÓN INFERIOR (FOOTER MOBILE) -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchNav('view-home')">
+            <span class="nav-icon">🏠</span>
+        </button>
+        <button class="nav-item" onclick="switchNav('view-chats')">
+            <span class="nav-icon">💬</span>
+        </button>
+        <button class="nav-item create-btn" onclick="openCreateModal()">
+            <span class="nav-icon">+</span>
+        </button>
+        <button class="nav-item" onclick="switchNav('view-profile')">
+            <span class="nav-icon">👤</span>
+        </button>
     </nav>
 
-    <main id="app-view">
-        <!-- FORMULARIO DE CREACIÓN -->
-        <section id="create-section" class="content-box">
-            <h1>Crear un Personaje</h1>
-            
-            <div class="avatar-upload">
-                <input type="file" id="avatar-input" accept="image/*" hidden>
-                <label for="avatar-input" class="avatar-circle">📷</label>
-                <p>Subir foto</p>
-            </div>
-
-            <div class="input-group">
-                <label>Nombre del Personaje</label>
-                <input type="text" id="char-name" placeholder="Ej: Tony Stark">
-            </div>
-
-            <div class="input-group">
-                <label>Saludo Inicial</label>
-                <textarea id="char-greeting" placeholder="¿Qué dirá el personaje primero?"></textarea>
-            </div>
-
-            <div class="input-group">
-                <label>Definición (Prompt largo)</label>
-                <textarea id="char-prompt" rows="5" placeholder="Define la personalidad y el contexto aquí..."></textarea>
-            </div>
-
-            <div class="input-group">
-                <label>Visibilidad</label>
-                <select id="char-visibility">
-                    <option value="public">Público</option>
-                    <option value="private">Privado</option>
-                </select>
-            </div>
-
-            <button class="btn-create" onclick="saveCharacter()">Crear Personaje</button>
-        </section>
-    </main>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
